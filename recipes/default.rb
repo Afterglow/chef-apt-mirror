@@ -34,7 +34,7 @@ threads = node["apt-mirror"]["threads"] || "20"
 
 sources = node["apt-mirror"]["sources"]
 
-template mirror_config do
+template "/etc/apt/mirror.list" do
   source "mirror.list.erb"
   variables ({
     :base_path => basepath,

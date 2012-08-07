@@ -12,9 +12,14 @@ override_attributes(
             "main",
             "universe",
             "multiverse"
-          ]
+          ],
+          "source" => 1
         }
       }
     }
   }
+)
+
+run_list(
+  "recipe[apt-mirror]"
 )
