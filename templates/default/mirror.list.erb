@@ -19,3 +19,7 @@ deb-src <%= "#{url}#{path}" %> <%= details["release"] %> <%= details["suites"].j
   <% end %>
  <% end %>
 <% end %>
+
+<% @sources.each_pair do |url,paths| %>
+clean <%= url %>
+<% end %>
