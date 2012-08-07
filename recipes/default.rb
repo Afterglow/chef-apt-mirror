@@ -24,35 +24,33 @@ end
 
 mirrorfile = File.join("/etc/apt/", "mirror.list")
   
-basepath = node["apt-mirror"]["basepath"] || "/var/spool/apt-mirror"
-mirrorpath = node["apt-mirror"]["mirrorpath"] || "$base_path/mirror"
-skelpath = node["apt-mirror"]["skelpath"] || "$base_path/skel"
-varpath = node["apt-mirror"]["varpath"] || "$base_path/var"
+node['apt-mirror']['basepath'] ||= "/var/spool/apt-mirror"
+node['apt-mirror']['mirrorpath'] ||= "$base_path/mirror"
+node['apt-mirror']['skelpath'] ||= "$base_path/skel"
+node['apt-mirror']['varpath'] ||= "$base_path/var"
 
-defaultarch = node["apt-mirror"]["arch"] || node[:kernel][:machine]
-threads = node["apt-mirror"]["threads"] || "20"
+node['apt-mirror']['arch'] ||= "amd64"
+node['apt-mirror']['threads'] ||= "20"
 
-sources = node["apt-mirror"]["sources"]
-
-hour = node["apt-mirror"]["hour"] || "1"
-minute = node["apt-mirror"]["minute"] || "18"
+node['apt-mirror']['hour'] ||= "1"
+node['apt-mirror']['minute'] ||= "18"
 
 template "/etc/apt/mirror.list" do
   source "mirror.list.erb"
   variables ({
-    :base_path => basepath,
-    :mirror_path => mirrorpath,
-    :skel_path => skelpath,
-    :var_path => varpath,
-    :defaultarch => defaultarch,
-    :threads => threads,
-    :sources => sources
+    :base_path => node['apt-mirror']['basepath'],
+    :mirror_path => node['apt-mirror']['mirrorpath'],
+    :skel_path => node['apt-mirror']['skelpath'],
+    :var_path => node['apt-mirror']['varpath'],
+    :defaultarch => node['apt-mirror']['arch'],
+    :threads => node['apt-mirror']['threads'],
+    :sources => node['apt-mirror']['sources']
   })
 end
 
 cron "apt-mirror" do
   user "apt-mirror"
-  hour "#{hour}"
-  minute "#{minute}"
+  hour "#{node['apt-mirror']['hour']}"
+  minute "#{node['apt-mirror']['minute']}"
   command "/usr/bin/apt-mirror > /var/spool/apt-mirror/var/cron.log"
 end
