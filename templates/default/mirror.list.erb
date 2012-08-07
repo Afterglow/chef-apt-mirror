@@ -1,18 +1,16 @@
-set base_path	<%= @base_path =>
-set mirror_path	<%= @mirror_path =>
-set skel_path	<%= @skel_path =>
-set var_path	<%= @var_path =>
+set base_path	<%= @base_path %>
+set mirror_path	<%= @mirror_path %>
+set skel_path	<%= @skel_path %>
+set var_path	<%= @var_path %>
 
-set defaultarch	<%= @defaultarch =>
-set nthreads	<%= @threads =>
+set defaultarch	<%= @defaultarch %>
+set nthreads	<%= @threads %>
 
 <% unless @sources.nil? %>
   <% @sources.each_pair do |url,paths| %>
     <% paths.each_pair do |path,details| %>
-      deb <% #{url}#{path} %> <%= details['release'] <%= details['suites'].join(' ') %>
-      <% if details['src'] == 1 %>
-        deb-src <% #{url}#{path} %> <%= details['release'] <%= details['suites'].join(' ') %>
-      <% end %>
+      deb <%= "#{url}#{path}" %> <%= details["release"] %> <%= details["suites"].join(' ') %>
+      deb-src <%= "#{url}#{path}" %> <%= details["release"] %> <%= details["suites"].join(' ') %>
     <% end %>
   <% end %>
 <% end %>
