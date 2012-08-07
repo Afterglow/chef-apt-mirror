@@ -1,4 +1,12 @@
-chef-apt-mirror
-===============
+Description
+===========
 
-Chef recipe to configure an apt-mirror
+Requirements
+============
+
+Attributes
+==========
+
+Usage
+=====
+
