@@ -29,19 +29,20 @@ mirrorpath = node["apt-mirror"]["mirrorpath"] || "$base_path/mirror"
 skelpath = node["apt-mirror"]["skelpath"] || "$base_path/skel"
 varpath = node["apt-mirror"]["varpath"] || "$base_path/var"
 
-defaultarch = node["apt-mirror"]["arch"] || node[:kernel:][:machine]
+defaultarch = node["apt-mirror"]["arch"] || node[:kernel][:machine]
 threads = node["apt-mirror"]["threads"] || "20"
 
 sources = node["apt-mirror"]["sources"]
 
-  template mirror_config do
-    source "mirror.list.erb"
-    variables ({
-      :base_path = basepath,
-      :mirror_path = mirrorpath,
-      :skel_path = skelpath,
-      :var_path = varpath,
-      :defaultarch = defaultarch,
-      :threads = threads,
-      :sources = sources
-    })
+template mirror_config do
+  source "mirror.list.erb"
+  variables ({
+    :base_path => basepath,
+    :mirror_path => mirrorpath,
+    :skel_path => skelpath,
+    :var_path => varpath,
+    :defaultarch => defaultarch,
+    :threads => threads,
+    :sources => sources
+  })
+end
