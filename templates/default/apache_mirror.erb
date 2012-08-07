@@ -1,0 +1,18 @@
+<VirtualHost *:80>
+  ServerName	<%= @host_name %>
+  <% unless @host_aliases.nil? %>
+  ServerAlias	<%= @host_aliases.join(" ") %>
+  <% end %>
+
+  DocumentRoot	<%= @docroot %>
+
+  <Directory />
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+  </Directory>
+
+  LogLevel info
+  ErrorLog <%= node[:apache][:log_dir] %>/mirror-error.log
+  CustomLog <%= node[:apache][:log_dir] %>/mirror-access.log combined
+</VirtualHost>
