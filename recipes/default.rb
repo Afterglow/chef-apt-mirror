@@ -25,9 +25,9 @@ end
 mirrorfile = File.join("/etc/apt/", "mirror.list")
   
 node['apt-mirror']['basepath'] ||= "/var/spool/apt-mirror"
-node['apt-mirror']['mirrorpath'] ||= "$base_path/mirror"
-node['apt-mirror']['skelpath'] ||= "$base_path/skel"
-node['apt-mirror']['varpath'] ||= "$base_path/var"
+node['apt-mirror']['mirrorpath'] ||= "/var/spool/apt-mirror/mirror"
+node['apt-mirror']['skelpath'] ||= "/var/spool/apt-mirror/skel"
+node['apt-mirror']['varpath'] ||= "/var/spool/apt-mirror/var"
 
 node['apt-mirror']['arch'] ||= "amd64"
 node['apt-mirror']['threads'] ||= "20"
