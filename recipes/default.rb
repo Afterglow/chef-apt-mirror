@@ -34,6 +34,9 @@ threads = node["apt-mirror"]["threads"] || "20"
 
 sources = node["apt-mirror"]["sources"]
 
+hour = node["apt-mirror"]["hour"] || "1"
+minute = node["apt-mirror"]["minute"] || "18"
+
 template "/etc/apt/mirror.list" do
   source "mirror.list.erb"
   variables ({
@@ -45,4 +48,11 @@ template "/etc/apt/mirror.list" do
     :threads => threads,
     :sources => sources
   })
+end
+
+cron "apt-mirror" do
+  user "apt-mirror"
+  hour "#{hour}"
+  minute "#{minute}"
+  command "/usr/bin/apt-mirror > /var/spool/apt-mirror/var/cron.log"
 end
