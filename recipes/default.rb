@@ -37,6 +37,9 @@ node['apt-mirror']['minute'] ||= "18"
 
 template "/etc/apt/mirror.list" do
   source "mirror.list.erb"
+  owner "root"
+  group "root"
+  mode "0644"
   variables ({
     :base_path => node['apt-mirror']['basepath'],
     :mirror_path => node['apt-mirror']['mirrorpath'],
